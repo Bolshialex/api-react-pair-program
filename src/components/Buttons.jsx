@@ -1,5 +1,3 @@
-import React from "react";
-
 function Buttons() {
   return (
     <div className="btn-container">
