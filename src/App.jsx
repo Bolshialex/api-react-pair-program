@@ -1,10 +1,16 @@
+import Buttons from "./components/Buttons";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import WeatherCard from "./components/WeatherCard";
 import "./App.css";
-import { TiWeatherCloudy } from "react-icons/ti";
 
 function App() {
   return (
     <>
-      <TiWeatherCloudy />
+      <Header />
+      <Buttons />
+      <WeatherCard />
+      <Footer />
     </>
   );
 }
