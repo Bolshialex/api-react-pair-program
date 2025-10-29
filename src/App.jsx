@@ -9,30 +9,39 @@ import "./App.css";
 function App() {
   const [lon, setLon] = useState(122.3328);
   const [lat, setLat] = useState(47.6061);
-  const [weatherInfo, setWeatherInfo] = useState([]);
+  const [weatherInfo, setWeatherInfo] = useState({});
   const [city, setCity] = useState("Seattle");
 
   const API_KEY = import.meta.env.VITE_APP_API_KEY;
 
   useEffect(() => {
-    async function getWeather(lat, lon, APIkey) {
+    async function getWeather(lat, lon, API_KEY) {
       try {
         const res = await axios.get(
-          `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${APIkey}`
+          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`
         );
 
         return res.data;
       } catch (error) {
         console.error("Failed to load weather:", error);
+        return null;
       }
     }
 
-    setWeatherInfo(getWeather(lat, lon, API_KEY));
-  }, []);
+    async function fetchWeather() {
+      const data = await getWeather(lat, lon, API_KEY);
 
-  const handleSubmit = async (e) => {
+      if (data) setWeatherInfo(data);
+    }
+
+    fetchWeather();
+  }, [lat, lon, API_KEY]);
+
+  const handleClick = async (e) => {
     e.preventDefault();
+
     const city = e.target.id;
+
     if (city === "seattle") {
       setLon(122.3328);
       setLat(47.6061);
@@ -63,28 +72,41 @@ function App() {
     <>
       <Header />
       <div className="btn-container">
-        <form onSubmit={handleSubmit}>
-          <button type="submit" className="btn" id="seattle">
-            Seattle
-          </button>
-          <button type="submit" className="btn" id="new-york">
-            New York
-          </button>
-          <button type="submit" className="btn" id="paris">
-            Paris
-          </button>
-          <button type="submit" className="btn" id="london">
-            London
-          </button>
-          <button type="submit" className="btn" id="moscow">
-            Moscow
-          </button>
-          <button type="submit" className="btn" id="hong-kong">
-            Hong Kong
-          </button>
-        </form>
+        <button
+          type="submit"
+          className="btn"
+          id="seattle"
+          onClick={handleClick}
+        >
+          Seattle
+        </button>
+        <button
+          type="submit"
+          className="btn"
+          id="new-york"
+          onClick={handleClick}
+        >
+          New York
+        </button>
+        <button type="submit" className="btn" id="paris" onClick={handleClick}>
+          Paris
+        </button>
+        <button type="submit" className="btn" id="london" onClick={handleClick}>
+          London
+        </button>
+        <button type="submit" className="btn" id="moscow" onClick={handleClick}>
+          Moscow
+        </button>
+        <button
+          type="submit"
+          className="btn"
+          id="hong-kong"
+          onClick={handleClick}
+        >
+          Hong Kong
+        </button>
       </div>
-      <WeatherCard weatherInfo={(weatherInfo, city)} />
+      <WeatherCard weatherInfo={weatherInfo} city={city} />
       <Footer />
     </>
   );
