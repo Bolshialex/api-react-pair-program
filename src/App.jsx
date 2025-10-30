@@ -1,4 +1,3 @@
-import Buttons from "./components/Buttons";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import WeatherCard from "./components/WeatherCard";
@@ -34,28 +33,28 @@ function App() {
     e.preventDefault();
     const city = e.target.id;
     if (city === "seattle") {
-      setLon(122.3328);
-      setLat(47.6061);
+      setLon(122);
+      setLat(47);
       setCity("Seattle");
     } else if (city === "new-york") {
-      setLon(74.006);
-      setLat(40.7128);
+      setLon(74);
+      setLat(40);
       setCity("New York");
     } else if (city === "paris") {
-      setLon(2.3514);
-      setLat(48.8575);
+      setLon(2);
+      setLat(48);
       setCity("Paris");
     } else if (city === "london") {
-      setLon(0.1276);
-      setLat(51.5072);
+      setLon(0);
+      setLat(51);
       setCity("London");
     } else if (city === "moscow") {
-      setLon(37.6151);
-      setLat(55.7569);
+      setLon(37);
+      setLat(55);
       setCity("Moscow");
     } else {
-      setLon(114.1694);
-      setLat(22.3193);
+      setLon(114);
+      setLat(22);
       setCity("Hong Kong");
     }
   };
